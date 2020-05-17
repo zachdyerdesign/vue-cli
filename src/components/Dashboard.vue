@@ -52,7 +52,6 @@
                 </a>
               </li>
             </ul>
-
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Saved reports</span>
               <a class="d-flex align-items-center text-muted" href="#">
@@ -87,7 +86,6 @@
             </ul>
           </div>
         </nav>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
@@ -102,9 +100,8 @@
               </button>
             </div>
           </div>
-
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-
+          <line-chart :chart-data="datacollection" class="chart" :options="datacollection.options" responsive></line-chart>
+<!--           <button @click="fillData()">Randomize</button> -->
           <h2>Section title</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -238,52 +235,49 @@
     </div>
   </div>
 </template>
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
-  feather.replace()
-</script>
- <!-- Graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-  var ctx = document.getElementById("myChart");
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      datasets: [{
-        data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false,
-      }
-    }
-  });
-</script>
-<script>
+import LineChart from '../LineChart.js'
 export default {
+  components: {
+    LineChart
+  },
   name: 'Dashboard',
   props: {
     msg: String
   },
-  data: function() {
+  mounted(){
+     console.log(LineChart)
+  },
+  data: function(){
     return {
-      email: null,
-      password: null
+      datacollection: {
+        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        datasets: [
+          {
+            label: "Users",
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }
+        ],
+         options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      }
     }
   },
   methods: {
@@ -292,6 +286,7 @@ export default {
     }
   }
 }
+  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -299,17 +294,14 @@ export default {
   body {
     font-size: .875rem;
   }
-
   .feather {
     width: 16px;
     height: 16px;
     vertical-align: text-bottom;
   }
-
   /*
    * Sidebar
    */
-
   .sidebar {
     position: fixed;
     top: 0;
@@ -319,7 +311,6 @@ export default {
     padding: 0;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   }
-
   .sidebar-sticky {
     position: -webkit-sticky;
     position: sticky;
@@ -329,21 +320,17 @@ export default {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   }
-
   .sidebar .nav-link {
     font-weight: 500;
     color: #333;
   }
-
   .sidebar .nav-link .feather {
     margin-right: 4px;
     color: #999;
   }
-
   .sidebar .nav-link.active {
     color: #007bff;
   }
-
   .sidebar .nav-link:hover .feather,
   .sidebar .nav-link.active .feather {
     color: inherit;
@@ -353,11 +340,9 @@ export default {
     font-size: .75rem;
     text-transform: uppercase;
   }
-
   /*
    * Navbar
    */
-
   .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
@@ -365,28 +350,26 @@ export default {
     background-color: rgba(0, 0, 0, .25);
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
   }
-
   .navbar .form-control {
     padding: .75rem 1rem;
     border-width: 0;
     border-radius: 0;
   }
-
   .form-control-dark {
     color: #fff;
     background-color: rgba(255, 255, 255, .1);
     border-color: rgba(255, 255, 255, .1);
   }
-
   .form-control-dark:focus {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
-
+  .chart canvas {
+    height: 400px;
+  }
   /*
    * Utilities
    */
-
   .border-top { border-top: 1px solid #e5e5e5; }
   .border-bottom { border-bottom: 1px solid #e5e5e5; }
 </style>
