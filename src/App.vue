@@ -1,28 +1,111 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Cheat Codes"/>
+    <nav class="site-header sticky-top py-1">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <router-link to="/" class="py-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+        </router-link>
+        <router-link to="/register" class="py-2 d-none d-md-inline-block">Register Route</router-link>
+        <router-link to="/signin" class="py-2 d-none d-md-inline-block">Sign In Route</router-link>
+        <router-link to="/checkout" class="py-2 d-none d-md-inline-block">Checkout Route</router-link>
+        <router-link to="/pricing" class="py-2 d-none d-md-inline-block">Pricing Route</router-link>
+        <router-link to="/dashboard" class="py-2 d-none d-md-inline-block">Dashboard Route</router-link>
+      </div>
+    </nav>
+    <!-- route outlet -->
+    <!-- component matched by the route will render here -->
+    <router-view></router-view>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
   components: {
-    HelloWorld
+  },
+  mounted(){
+    console.log(this.$route)  
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+.container {
+    max-width: 960px;
+  }
+
+  /*
+   * Custom translucent site header
+   */
+
+  .site-header {
+    background-color: rgba(0, 0, 0, .85);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  .site-header a {
+    color: #999;
+    transition: ease-in-out color .15s;
+  }
+  .site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /*
+   * Dummy devices (replace them with your own or something else entirely!)
+   */
+
+  .product-device {
+    position: absolute;
+    right: 10%;
+    bottom: -30%;
+    width: 300px;
+    height: 540px;
+    background-color: #333;
+    border-radius: 21px;
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+
+  .product-device::before {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    bottom: 10%;
+    left: 10px;
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 5px;
+  }
+
+  .product-device-2 {
+    top: -25%;
+    right: auto;
+    bottom: 0;
+    left: 5%;
+    background-color: #e5e5e5;
+  }
+
+
+  /*
+   * Extra utilities
+   */
+
+  .border-top { border-top: 1px solid #e5e5e5; }
+  .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+  .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+  .flex-equal > * {
+    -ms-flex: 1;
+    -webkit-box-flex: 1;
+    flex: 1;
+  }
+  @media (min-width: 768px) {
+    .flex-md-equal > * {
+      -ms-flex: 1;
+      -webkit-box-flex: 1;
+      flex: 1;
+    }
+  }
+  .overflow-hidden  {overflow: hidden;}
 </style>

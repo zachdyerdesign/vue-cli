@@ -1,4 +1,4 @@
-# bootstrap-jekyll-template
+# vue-cli
 
 ## Project setup
 ```
