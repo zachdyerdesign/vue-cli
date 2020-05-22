@@ -7,6 +7,8 @@ import Signin from './components/Signin.vue'
 import Pricing from './components/Pricing.vue'
 import Dashboard from './components/Dashboard.vue'
 import Checkout from './components/Checkout.vue'
+import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 var router = new VueRouter({
